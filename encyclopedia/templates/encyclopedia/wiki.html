@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    
+    {% if title is not None %}
+
+        {{content}}
+
+    {% else %}
+        
+        {% block error %}
+        {% endblock %}
+        
+    <h1> Error 404, page not found </h1>
+
+    {% endif %}
+
+{% endblock %}
