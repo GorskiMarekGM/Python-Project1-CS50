@@ -1,1 +1,1 @@
-content of the new page
+content of the new page hehe

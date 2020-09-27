@@ -8,7 +8,7 @@
     <h3> This is what I have found: </h3>
     
     {% for result in result_list %}
-        <li><a href="{% url 'get_content' result %}">{{ result }}</a></li>
+        <li><a href="{% url 'encyclopedia:get_content' result %}">{{ result }}</a></li>
     {% endfor %}
 
 {% endblock %}

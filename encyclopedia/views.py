@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from . import util
 
-class CreateEntityForm(forms.Form):
+class EntityForm(forms.Form):
     title = forms.CharField(label = "Title")
     content = forms.CharField(widget=forms.Textarea, label="Content")
 
@@ -37,7 +37,7 @@ def search(request):
 
 def create(request):
     if request.method == "POST":
-        form = CreateEntityForm(request.POST)
+        form = EntityForm(request.POST)
         message =""
         if form.is_valid():
             title = form.cleaned_data["title"]
@@ -58,5 +58,30 @@ def create(request):
             })
 
     return render(request, "encyclopedia/create.html",{
-        "form": CreateEntityForm()
+        "form": EntityForm()
+    })
+
+def edit_post(request):
+
+    if request.method == "POST":
+        form = EntityForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+
+            util.save_entry(title,content)
+            get_content(request,title)
+
+        return get_content(request,title)
+    
+    else:
+        return render(request,"encyclopedia/edit.html",{
+            "message":"Something went wrong. Try again!",
+            "form":form
+        })
+        
+def initialize_form(request, title):
+    InitialForm = EntityForm(initial={'title': title, 'content':util.get_entry(title)})
+    return render(request,"encyclopedia/edit.html",{ 
+        "form":InitialForm
     })
