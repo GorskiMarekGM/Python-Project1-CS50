@@ -38,12 +38,22 @@ def search(request):
 def create(request):
     if request.method == "POST":
         form = CreateEntityForm(request.POST)
+        message =""
         if form.is_valid():
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
-            util.save_entry(title,content)
+            if(util.get_entry(title)):
+                message = "Sorry, this title already exists... Try something else."
+                return render(request,"encyclopedia/create.html",{
+                    "form":form,
+                    "message":message
+                })
+            else:
+                util.save_entry(title,content)
+                return get_content(request,title)
+
         else:
-            return render(request,"ecnyclopecia/create.html",{
+            return render(request,"encyclopedia/create.html",{
                 "form":form
             })
 
