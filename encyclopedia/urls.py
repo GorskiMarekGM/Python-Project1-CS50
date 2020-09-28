@@ -11,4 +11,5 @@ urlpatterns = [
     path("create/", views.create, name="create"),
     path("edit/<str:title>", views.initialize_form, name="initialize_form"),
     path("edit/", views.edit_post, name="edit_post"),
+    path("random/", views.random_entry, name="random_entry"),
 ]

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import random
 
 from . import util
 
@@ -84,4 +85,13 @@ def initialize_form(request, title):
     InitialForm = EntityForm(initial={'title': title, 'content':util.get_entry(title)})
     return render(request,"encyclopedia/edit.html",{ 
         "form":InitialForm
+    })
+
+def random_entry(request):
+    all_entries = util.list_entries()
+    entry = random.choice(all_entries)
+
+    return render(request, "encyclopedia/wiki.html",{
+        "title": entry,
+        "content":util.get_entry(entry)
     })
