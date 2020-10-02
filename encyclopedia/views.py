@@ -3,6 +3,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import random
+import markdown2 as md
 
 from . import util
 
@@ -95,3 +96,7 @@ def random_entry(request):
         "title": entry,
         "content":util.get_entry(entry)
     })
+
+def get_markdown(self):
+    content = self.content
+    return md(content)

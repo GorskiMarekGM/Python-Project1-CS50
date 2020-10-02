@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load md2 %}
 
 {% block title %}
     {{title}}
@@ -7,9 +8,9 @@
 {% block body %}
     
     {% if title is not None %}
-        <h1>{{title}}</h1>
+        
         <br>
-        {{content}}
+        {{ content|markdown:"safe" }}
         <br>
         <a href="{% url 'encyclopedia:initialize_form' title %}">Edit</a>
 

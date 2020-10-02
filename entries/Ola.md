@@ -1,1 +1,0 @@
-Ola to moja siostra i zaraz bedzie jesc kolacje
