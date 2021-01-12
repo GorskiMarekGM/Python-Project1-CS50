@@ -17,10 +17,22 @@ def index(request):
     })
 
 def get_content(request,title):
-    return render(request, "encyclopedia/wiki.html",{
-        "title": title,
-        "content": util.get_entry(title)
-    })
+    try:
+        content = util.get_entry(title)
+
+        return render(request, "encyclopedia/wiki.html",{
+            "title": title,
+            "content": content
+        })
+
+    except:
+        content = "Wrong path, please try again!"
+        
+        return render(request, "encyclopedia/wiki.html",{
+            "title": title,
+            "content": content,
+            "message": "lol"
+        })
 
 def search(request):
     if request.method == "POST":
